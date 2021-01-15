@@ -1,4 +1,4 @@
-¾Æ·¡ ÀÚ·á´Â ¼ö¾÷À» À§ÇØ °¡»óÀ¸·Î ¸¸µé¾îÁø ÀÚ·áÀÓÀ» ¹àÈü´Ï´Ù.
+ì•„ë˜ ìë£ŒëŠ” ì‹¤ìŠµì„ ìœ„í•´ ê°€ìƒìœ¼ë¡œ ë§Œë“¤ì–´ì§„ ìë£Œì„ì„ ë°í™ë‹ˆë‹¤.
 
 create table sangdata(
 code int primary key,
@@ -6,10 +6,10 @@ sang varchar(20),
 su int,
 dan int) charset=utf8;
 
-insert into sangdata values(1,'Àå°©',3,10000);
-insert into sangdata values(2,'º¡¾î¸®Àå°©',2,12000);
-insert into sangdata values(3,'°¡Á×Àå°©',10,50000);
-insert into sangdata values(4,'°¡Á×Á¡ÆÛ',5,650000);
+insert into sangdata values(1,'ì¥ê°‘',3,10000);
+insert into sangdata values(2,'ë²™ì–´ë¦¬ì¥ê°‘',2,12000);
+insert into sangdata values(3,'ê°€ì£½ì¥ê°‘',10,50000);
+insert into sangdata values(4,'ê°€ì£½ì í¼',5,650000);
 
 
 create table buser(
@@ -18,53 +18,53 @@ buser_name varchar(10) not null,
 buser_loc varchar(10),
 buser_tel varchar(15)) charset=utf8;
 
-insert into buser values(10,'ÃÑ¹«ºÎ','¼­¿ï','02-100-1111');
-insert into buser values(20,'¿µ¾÷ºÎ','¼­¿ï','02-100-2222');
-insert into buser values(30,'Àü»êºÎ','¼­¿ï','02-100-3333');
-insert into buser values(40,'°ü¸®ºÎ','ÀÎÃµ','032-200-4444');
+insert into buser values(10,'ì´ë¬´ë¶€','ì„œìš¸','02-100-1111');
+insert into buser values(20,'ì˜ì—…ë¶€','ì„œìš¸','02-100-2222');
+insert into buser values(30,'ì „ì‚°ë¶€','ì„œìš¸','02-100-3333');
+insert into buser values(40,'ê´€ë¦¬ë¶€','ì¸ì²œ','032-200-4444');
 
 
 create table jikwon(
 jikwon_no  int(4) primary key,
 jikwon_name varchar(10) not null,
 buser_num int(4) not null,
-jikwon_jik  varchar(10) default '»ç¿ø', 
+jikwon_jik  varchar(10) default 'ì‚¬ì›', 
 jikwon_pay int,
 jikwon_ibsail date,
 jikwon_gen  varchar(4),
 jikwon_rating char(3),
-CONSTRAINT ck_jikwon_gen check(jikwon_gen='³²' or jikwon_gen='¿©')) charset=utf8;
+CONSTRAINT ck_jikwon_gen check(jikwon_gen='ë‚¨' or jikwon_gen='ì—¬')) charset=utf8;
 
-insert into jikwon values(1,'È«±æµ¿',10,'ÀÌ»ç',9900,'2008-09-01','³²','a');
-insert into jikwon values(2,'ÇÑ¼ÛÀÌ',20,'ºÎÀå',8800,'2010-01-03','¿©','b');
-insert into jikwon values(3,'ÀÌ¼ø½Å',20,'°úÀå',7900,'2010-03-03','³²','b');
-insert into jikwon values(4,'ÀÌ¹Ì¶ó',30,'´ë¸®',4500,'2014-01-04','¿©','b');
-insert into jikwon values(5,'ÀÌ¼ø¶ó',20,'»ç¿ø',3000,'2017-08-05','¿©','b');
-insert into jikwon values(6,'±èÀÌÈ­',20,'»ç¿ø',2950,'2019-08-05','¿©','c');
-insert into jikwon values(7,'±èºÎ¸¸',40,'ºÎÀå',8600,'2009-01-05','³²','a');
-insert into jikwon values(8,'±è±â¸¸',20,'°úÀå',7800,'2011-01-03','³²','a');
-insert into jikwon values(9,'Ã¤¼ÛÈ­',30,'´ë¸®',5000,'2013-03-02','¿©','a');
-insert into jikwon values(10,'¹ÚÄ¡±â',10,'»ç¿ø',3700,'2016-11-02','³²','a');
-insert into jikwon values(11,'±èºÎÇØ',30,'»ç¿ø',3900,'2016-03-06','³²','a');
-insert into jikwon values(12,'¹Úº°³ª',40,'°úÀå',7200,'2011-03-05','¿©','b');
-insert into jikwon values(13,'¹Ú¸íÈ­',10,'´ë¸®',4900,'2013-05-11','³²','a');
-insert into jikwon values(14,'¹Ú±ÃÈ­',40,'»ç¿ø',3400,'2016-01-15','¿©','b');
-insert into jikwon values(15,'Ã¤¹Ì¸®',20,'»ç¿ø',4000,'2016-11-03','¿©','a');
-insert into jikwon values(16,'ÀÌÀ¯°¡',20,'»ç¿ø',3000,'2016-02-01','¿©','c');
-insert into jikwon values(17,'ÇÑ±¹ÀÎ',10,'ºÎÀå',8000,'2006-01-13','³²','c');
-insert into jikwon values(18,'ÀÌ¼ø±â',30,'°úÀå',7800,'2011-11-03','³²','a');
-insert into jikwon values(19,'ÀÌÀ¯¶ó',30,'´ë¸®',5500,'2014-03-04','¿©','a');
-insert into jikwon values(20,'±èÀ¯¶ó',20,'»ç¿ø',2900,'2019-12-05','¿©','b');
-insert into jikwon values(21,'Àåºñ',20,'»ç¿ø',2950,'2019-08-05','³²','b');
-insert into jikwon values(22,'±è±â¿í',40,'´ë¸®',5850,'2013-02-05','³²','a');
-insert into jikwon values(23,'±è±â¸¸',30,'°úÀå',6600,'2015-01-09','³²','a');
-insert into jikwon values(24,'À¯ºñ',20,'´ë¸®',4500,'2014-03-02','³²','b');
-insert into jikwon values(25,'¹ÚÇõ±â',10,'»ç¿ø',3800,'2016-11-02','³²','a');
-insert into jikwon values(26,'±è³ª¶ó',10,'»ç¿ø',3500,'2016-06-06','³²','b');
-insert into jikwon values(27,'¹ÚÇÏ³ª',20,'°úÀå',5900,'2012-06-05','¿©','c');
-insert into jikwon values(28,'¹Ú¸íÈ­',20,'´ë¸®',5200,'2013-06-01','¿©','a');
-insert into jikwon values(29,'¹Ú°¡Èñ',10,'»ç¿ø',4100,'2016-08-05','¿©','a');
-insert into jikwon values(30,'ÃÖ¹Ì¼÷',30,'»ç¿ø',4000,'2015-08-03','¿©','b');
+insert into jikwon values(1,'í™ê¸¸ë™',10,'ì´ì‚¬',9900,'2008-09-01','ë‚¨','a');
+insert into jikwon values(2,'í•œì†¡ì´',20,'ë¶€ì¥',8800,'2010-01-03','ì—¬','b');
+insert into jikwon values(3,'ì´ìˆœì‹ ',20,'ê³¼ì¥',7900,'2010-03-03','ë‚¨','b');
+insert into jikwon values(4,'ì´ë¯¸ë¼',30,'ëŒ€ë¦¬',4500,'2014-01-04','ì—¬','b');
+insert into jikwon values(5,'ì´ìˆœë¼',20,'ì‚¬ì›',3000,'2017-08-05','ì—¬','b');
+insert into jikwon values(6,'ê¹€ì´í™”',20,'ì‚¬ì›',2950,'2019-08-05','ì—¬','c');
+insert into jikwon values(7,'ê¹€ë¶€ë§Œ',40,'ë¶€ì¥',8600,'2009-01-05','ë‚¨','a');
+insert into jikwon values(8,'ê¹€ê¸°ë§Œ',20,'ê³¼ì¥',7800,'2011-01-03','ë‚¨','a');
+insert into jikwon values(9,'ì±„ì†¡í™”',30,'ëŒ€ë¦¬',5000,'2013-03-02','ì—¬','a');
+insert into jikwon values(10,'ë°•ì¹˜ê¸°',10,'ì‚¬ì›',3700,'2016-11-02','ë‚¨','a');
+insert into jikwon values(11,'ê¹€ë¶€í•´',30,'ì‚¬ì›',3900,'2016-03-06','ë‚¨','a');
+insert into jikwon values(12,'ë°•ë³„ë‚˜',40,'ê³¼ì¥',7200,'2011-03-05','ì—¬','b');
+insert into jikwon values(13,'ë°•ëª…í™”',10,'ëŒ€ë¦¬',4900,'2013-05-11','ë‚¨','a');
+insert into jikwon values(14,'ë°•ê¶í™”',40,'ì‚¬ì›',3400,'2016-01-15','ì—¬','b');
+insert into jikwon values(15,'ì±„ë¯¸ë¦¬',20,'ì‚¬ì›',4000,'2016-11-03','ì—¬','a');
+insert into jikwon values(16,'ì´ìœ ê°€',20,'ì‚¬ì›',3000,'2016-02-01','ì—¬','c');
+insert into jikwon values(17,'í•œêµ­ì¸',10,'ë¶€ì¥',8000,'2006-01-13','ë‚¨','c');
+insert into jikwon values(18,'ì´ìˆœê¸°',30,'ê³¼ì¥',7800,'2011-11-03','ë‚¨','a');
+insert into jikwon values(19,'ì´ìœ ë¼',30,'ëŒ€ë¦¬',5500,'2014-03-04','ì—¬','a');
+insert into jikwon values(20,'ê¹€ìœ ë¼',20,'ì‚¬ì›',2900,'2019-12-05','ì—¬','b');
+insert into jikwon values(21,'ì¥ë¹„',20,'ì‚¬ì›',2950,'2019-08-05','ë‚¨','b');
+insert into jikwon values(22,'ê¹€ê¸°ìš±',40,'ëŒ€ë¦¬',5850,'2013-02-05','ë‚¨','a');
+insert into jikwon values(23,'ê¹€ê¸°ë§Œ',30,'ê³¼ì¥',6600,'2015-01-09','ë‚¨','a');
+insert into jikwon values(24,'ìœ ë¹„',20,'ëŒ€ë¦¬',4500,'2014-03-02','ë‚¨','b');
+insert into jikwon values(25,'ë°•í˜ê¸°',10,'ì‚¬ì›',3800,'2016-11-02','ë‚¨','a');
+insert into jikwon values(26,'ê¹€ë‚˜ë¼',10,'ì‚¬ì›',3500,'2016-06-06','ë‚¨','b');
+insert into jikwon values(27,'ë°•í•˜ë‚˜',20,'ê³¼ì¥',5900,'2012-06-05','ì—¬','c');
+insert into jikwon values(28,'ë°•ëª…í™”',20,'ëŒ€ë¦¬',5200,'2013-06-01','ì—¬','a');
+insert into jikwon values(29,'ë°•ê°€í¬',10,'ì‚¬ì›',4100,'2016-08-05','ì—¬','a');
+insert into jikwon values(30,'ìµœë¯¸ìˆ™',30,'ì‚¬ì›',4000,'2015-08-03','ì—¬','b');
 
 
 create table gogek(
@@ -75,21 +75,21 @@ gogek_jumin char(14),
 gogek_damsano  int(4),
 CONSTRAINT FK_gogek_damsano foreign key(gogek_damsano) references jikwon(jikwon_no)) charset=utf8;
 
-insert into gogek values(1,'ÀÌ³ª¶ó','02-535-2580','850612-1156777',5);
-insert into gogek values(2,'±èÇı¼ø','02-375-6946','700101-1054777',3);
-insert into gogek values(3,'ÃÖºÎÀÚ','02-692-8926','890305-1065777',3);
-insert into gogek values(4,'±èÇØÀÚ','032-393-6277','770412-2028777',13);
-insert into gogek values(5,'Â÷ÀÏÈ£','02-294-2946','790509-1062777',2);
-insert into gogek values(6,'¹Ú»ó¿î','032-631-1204','790623-1023777',6);
-insert into gogek values(7,'ÀÌºĞ','02-546-2372','880323-2558777',2);
-insert into gogek values(8,'½Å¿µ·¡','031-948-0283','790908-1063777',5);
-insert into gogek values(9,'Àåµµ¸®','02-496-1204','870206-2063777',4);
-insert into gogek values(10,'°­³ª·ç','032-341-2867','780301-1070777',12);
-insert into gogek values(11,'ÀÌ¿µÈñ','02-195-1764','810103-2070777',3);
-insert into gogek values(12,'ÀÌ¼Ò¸®','02-296-1066','810609-2046777',9);
-insert into gogek values(13,'¹è¿ëÁß','02-691-7692','820920-1052777',1);
-insert into gogek values(14,'±èÇöÁÖ','031-167-1884','800128-2062777',11);
-insert into gogek values(15,'¼Û¿îÇÏ','02-887-9344','830301-2013777',2);
+insert into gogek values(1,'ì´ë‚˜ë¼','02-535-2580','850612-1156777',5);
+insert into gogek values(2,'ê¹€í˜œìˆœ','02-375-6946','700101-1054777',3);
+insert into gogek values(3,'ìµœë¶€ì','02-692-8926','890305-1065777',3);
+insert into gogek values(4,'ê¹€í•´ì','032-393-6277','770412-2028777',13);
+insert into gogek values(5,'ì°¨ì¼í˜¸','02-294-2946','790509-1062777',2);
+insert into gogek values(6,'ë°•ìƒìš´','032-631-1204','790623-1023777',6);
+insert into gogek values(7,'ì´ë¶„','02-546-2372','880323-2558777',2);
+insert into gogek values(8,'ì‹ ì˜ë˜','031-948-0283','790908-1063777',5);
+insert into gogek values(9,'ì¥ë„ë¦¬','02-496-1204','870206-2063777',4);
+insert into gogek values(10,'ê°•ë‚˜ë£¨','032-341-2867','780301-1070777',12);
+insert into gogek values(11,'ì´ì˜í¬','02-195-1764','810103-2070777',3);
+insert into gogek values(12,'ì´ì†Œë¦¬','02-296-1066','810609-2046777',9);
+insert into gogek values(13,'ë°°ìš©ì¤‘','02-691-7692','820920-1052777',1);
+insert into gogek values(14,'ê¹€í˜„ì£¼','031-167-1884','800128-2062777',11);
+insert into gogek values(15,'ì†¡ìš´í•˜','02-887-9344','830301-2013777',2);
 
 
 create table board(
@@ -100,6 +100,6 @@ content varchar(4000),
 bwrite date,
 readcnt int(3) default 0) charset=utf8;
 
-insert into board(num,author,title,content,bwrite) values(1,'È«±æµ¿','¿¬½À','¿¬½À³»¿ë',now());
+insert into board(num,author,title,content,bwrite) values(1,'í™ê¸¸ë™','ì—°ìŠµ','ì—°ìŠµë‚´ìš©',now());
 
 
