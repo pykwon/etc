@@ -4,7 +4,7 @@ create table sangdata(
 code int primary key,
 sang varchar(20),
 su int,
-dan int) charset=utf8;
+dan int);                    참고 : 한글이 깨질 경우 ... dan int)charset=utf8;
 
 insert into sangdata values(1,'장갑',3,10000);
 insert into sangdata values(2,'벙어리장갑',2,12000);
@@ -16,7 +16,7 @@ create table buser(
 buser_no int(4)  primary key, 
 buser_name varchar(10) not null,
 buser_loc varchar(10),
-buser_tel varchar(15)) charset=utf8;
+buser_tel varchar(15));
 
 insert into buser values(10,'총무부','서울','02-100-1111');
 insert into buser values(20,'영업부','서울','02-100-2222');
@@ -33,7 +33,7 @@ jikwon_pay int,
 jikwon_ibsail date,
 jikwon_gen  varchar(4),
 jikwon_rating char(3),
-CONSTRAINT ck_jikwon_gen check(jikwon_gen='남' or jikwon_gen='여')) charset=utf8;
+CONSTRAINT ck_jikwon_gen check(jikwon_gen='남' or jikwon_gen='여'));
 
 insert into jikwon values(1,'홍길동',10,'이사',9900,'2008-09-01','남','a');
 insert into jikwon values(2,'한송이',20,'부장',8800,'2010-01-03','여','b');
@@ -73,7 +73,7 @@ gogek_name  varchar(10) not null,
 gogek_tel  varchar(20),
 gogek_jumin char(14),
 gogek_damsano  int(4),
-CONSTRAINT FK_gogek_damsano foreign key(gogek_damsano) references jikwon(jikwon_no)) charset=utf8;
+CONSTRAINT FK_gogek_damsano foreign key(gogek_damsano) references jikwon(jikwon_no));
 
 insert into gogek values(1,'이나라','02-535-2580','850612-1156777',5);
 insert into gogek values(2,'김혜순','02-375-6946','700101-1054777',3);
@@ -98,7 +98,7 @@ author varchar(10),
 title varchar(50),
 content varchar(4000),
 bwrite date,
-readcnt int(3) default 0) charset=utf8;
+readcnt int(3) default 0);
 
 insert into board(num,author,title,content,bwrite) values(1,'홍길동','연습','연습내용',now());
 
