@@ -13,7 +13,7 @@ insert into sangdata values(4,'가죽점퍼',5,650000);
 
 
 create table buser(
-buser_no int(4)  primary key, 
+buser_no int primary key, 
 buser_name varchar(10) not null,
 buser_loc varchar(10),
 buser_tel varchar(15));
@@ -25,13 +25,13 @@ insert into buser values(40,'관리부','인천','032-200-4444');
 
 
 create table jikwon(
-jikwon_no  int(4) primary key,
+jikwon_no int primary key,
 jikwon_name varchar(10) not null,
-buser_num int(4) not null,
-jikwon_jik  varchar(10) default '사원', 
+buser_num int not null,
+jikwon_jik varchar(10) default '사원', 
 jikwon_pay int,
 jikwon_ibsail date,
-jikwon_gen  varchar(4),
+jikwon_gen varchar(4),
 jikwon_rating char(3),
 CONSTRAINT ck_jikwon_gen check(jikwon_gen='남' or jikwon_gen='여'));
 
@@ -68,11 +68,11 @@ insert into jikwon values(30,'최미숙',30,'사원',4000,'2015-08-03','여','b'
 
 
 create table gogek(
-gogek_no  int(4) primary key,
-gogek_name  varchar(10) not null,
-gogek_tel  varchar(20),
+gogek_no int primary key,
+gogek_name varchar(10) not null,
+gogek_tel varchar(20),
 gogek_jumin char(14),
-gogek_damsano  int(4),
+gogek_damsano int,
 CONSTRAINT FK_gogek_damsano foreign key(gogek_damsano) references jikwon(jikwon_no));
 
 insert into gogek values(1,'이나라','02-535-2580','850612-1156777',5);
@@ -93,12 +93,12 @@ insert into gogek values(15,'송운하','02-887-9344','830301-2013777',2);
 
 
 create table board(
-num int(5) primary key,
+num int primary key,
 author varchar(10),
 title varchar(50),
 content varchar(4000),
 bwrite date,
-readcnt int(3) default 0);
+readcnt int default 0);
 
 insert into board(num,author,title,content,bwrite) values(1,'홍길동','연습','연습내용',now());
 
