@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- Target : 비즈니즈 로직(핵심 로직)용 개체 생성 -->
+	<bean id="targetObj" class="pack.MessageImpl">
+		<property name="name" value="홍길동" />
+	</bean>
+	
+	<!-- Advice를 Target 클래스에 weaving -->
+	<bean id="loggingAdvice" class="advice.LoggingAdvice" />
+	
+	<!-- proxy를 통한 접근 -->
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target">
+			<ref bean="targetObj" />
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>hiAdvisor</value>   <!-- Advisor를 적음 -->
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Advisor (Advice + pointcut) -->
+	<bean id="hiAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice">
+			<ref bean="loggingAdvice" />
+		</property>
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern">
+					<value>.*sayHi*.</value>  <!-- package에 상관없이 sayHi 메소드를 의미 -->
+				</property>
+			</bean>
+		</property>
+	</bean>
+</beans>
+
