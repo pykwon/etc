@@ -13,10 +13,10 @@ insert into sangdata values(4,'가죽점퍼',5,650000);
 
 
 create table buser(
-buser_no int primary key, 
-buser_name varchar(10) not null,
-buser_loc varchar(10),
-buser_tel varchar(15));
+buserno int primary key, 
+busername varchar(10) not null,
+buserloc varchar(10),
+busertel varchar(15));
 
 insert into buser values(10,'총무부','서울','02-100-1111');
 insert into buser values(20,'영업부','서울','02-100-2222');
@@ -25,15 +25,15 @@ insert into buser values(40,'관리부','인천','032-200-4444');
 
 
 create table jikwon(
-jikwon_no int primary key,
-jikwon_name varchar(10) not null,
-buser_num int not null,
-jikwon_jik varchar(10) default '사원', 
-jikwon_pay int,
-jikwon_ibsail date,
-jikwon_gen varchar(4),
-jikwon_rating char(3),
-CONSTRAINT ck_jikwon_gen check(jikwon_gen='남' or jikwon_gen='여'));
+jikwonno int primary key,
+jikwonname varchar(10) not null,
+busernum int not null,
+jikwonjik varchar(10) default '사원', 
+jikwonpay int,
+jikwonibsail date,
+jikwongen varchar(4),
+jikwonrating char(3),
+CONSTRAINT ck_jikwongen check(jikwongen='남' or jikwongen='여'));
 
 insert into jikwon values(1,'홍길동',10,'이사',9900,'2008-09-01','남','a');
 insert into jikwon values(2,'한송이',20,'부장',8800,'2010-01-03','여','b');
@@ -68,12 +68,12 @@ insert into jikwon values(30,'최미숙',30,'사원',4000,'2015-08-03','여','b'
 
 
 create table gogek(
-gogek_no int primary key,
-gogek_name varchar(10) not null,
-gogek_tel varchar(20),
-gogek_jumin char(14),
-gogek_damsano int,
-CONSTRAINT FK_gogek_damsano foreign key(gogek_damsano) references jikwon(jikwon_no));
+gogekno int primary key,
+gogekname varchar(10) not null,
+gogektel varchar(20),
+gogekjumin char(14),
+gogekdamsano int,
+CONSTRAINT FK_gogekdamsano foreign key(gogekdamsano) references jikwon(jikwonno));
 
 insert into gogek values(1,'이나라','02-535-2580','850612-1156777',5);
 insert into gogek values(2,'김혜순','02-375-6946','700101-1054777',3);
