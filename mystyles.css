@@ -1,0 +1,110 @@
+@charset "UTF-8";
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    max-width: 600px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+a.button {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+a.button.primary {
+    background-color: #28a745;
+}
+
+a.button.secondary {
+    background-color: #007BFF;
+}
+
+a.button.danger {
+    background-color: #dc3545;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+table.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+table.styled-table thead tr {
+    background-color: #009879;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+}
+
+table.styled-table th,
+table.styled-table td {
+    padding: 12px 15px;
+}
+
+table.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+table.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+table.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
