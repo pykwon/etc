@@ -103,3 +103,26 @@ readcnt int default 0);
 insert into board(num,author,title,content,bwrite) values(1,'홍길동','연습','연습내용',now());
 
 
+
+------------------------------------------------
+-- 1) 앨범 테이블
+CREATE TABLE albums (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 2) 사진 테이블
+CREATE TABLE photos (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  album_id BIGINT UNSIGNED NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  file_path VARCHAR(500) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX (album_id),
+  FOREIGN KEY (album_id) REFERENCES albums(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+
