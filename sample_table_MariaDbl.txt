@@ -117,6 +117,68 @@ insert into board(num,author,title,content,bwrite) values(1,'홍길동','연습'
 
 
 
+
+
+파이썬 웹 프로젝트 :  이미지 앨범 프로젝트 작성 관련 --------------------------
+참고 : 대부분의 "사진첩 관리" 같은 웹앱에서는 이미지는 폴더(또는 오브젝트 스토리지)에 저장하고, DB에는 경로/메타데이터만 저장하는 방식이 더 좋다.
+
+1) 이미지 DB 저장(BLOB) vs 폴더 저장(경로만 DB)
+ A. DB에 이미지 자체 저장(BLOB)
+    장점 : 백업/복구가 “DB만”으로 끝나서 단순해 보임
+           : 트랜잭션으로 “데이터+파일”을 한 번에 맞추기 쉬움(이론상)
+    단점(실무에서 크게 체감)
+           : DB 용량이 급격히 커져서 백업/복구가 느려짐
+           : 조회 트래픽이 커지면 DB가 이미지 전송까지 떠안아서 부담 증가
+           : CDN/캐시 적용이 번거로움
+           : DB 튜닝/복제/마이그레이션이 무거워짐
+
+B. 폴더(파일시스템/스토리지)에 이미지 저장 + DB엔 경로만 저장
+   장점 : DB는 메타데이터만 → 가볍고 빠름
+          : 이미지 서빙은 Nginx/CDN/정적서버가 담당 → 성능/비용/확장성 좋음
+          : 백업 전략을 “DB”와 “파일”로 분리 가능(운영이 표준적)
+          : 이미지 리사이즈/썸네일 캐시 등 처리하기 쉬움
+   단점 : DB와 파일의 정합성 관리가 필요(삭제/실패 처리)
+          : 서버 여러 대면 공유 스토리지(NFS) 또는 S3 같은 외부 스토리지가 필요
+          참고로 정합성 관리란 데이터가 서로 모순되지 않게(일관되게) 유지되도록 보장하는 활동/설계를 말함.
+(예: 주문 테이블엔 “결제완료”인데 결제 테이블엔 “실패”로 남아 있으면 정합성 깨짐)
+결론: 대부분은 B(폴더 저장 + DB 경로)가 정답에 가깝다.
+
+2) 언제 DB(BLOB) 저장이 “괜찮은 선택”인가?
+  - 이미지가 아주 작고(예: 아이콘/서명) 개수가 적음
+  - 단일 PC/단일 DB로 끝나는 “내부용 소규모 앱”
+  - “파일 시스템을 못 쓰는” 특수한 환경
+  - 그 외의 일반적인 사진첩/갤러리/게시판은 보통 B가 낫다.
+
+실습 전체 흐름 --------------------------------
+1. DB 준비 : albums(앨범) 테이블, photos(사진) 테이블(FK: photos.album_id → albums.id)을 만든다.
+2. 시작 페이지 → 앨범 관리
+  - 브라우저가 /albums로 접속하면 albums.html을 렌더링해서 앨범 목록을 보여준다.
+  - 앨범 추가 : 폼이 /albums/add로 POST → DB에 albums INSERT → 다시 /albums로 이동
+  - 앨범 수정 : /albums/edit/<id> GET(폼) → POST(저장) → DB UPDATE → /albums
+  - 앨범 삭제 : /albums/delete/<id> POST → (해당 앨범에 사진이 있으면 막음) → 없으면 DELETE
+3. 앨범 클릭 → 사진 목록 페이지
+  - 앨범 이름을 클릭하면 /albums/<album_id>/photos로 이동
+  - 서버는 해당 앨범의 사진들을 DB에서 SELECT 후 photos.html로 보여준다.
+  - 화면에는 각 사진의 썸네일(uploads/thumbs/…) 을 표시한다.
+4. 사진 업로드
+  - photos.html에서 파일+제목을 입력하고 업로드하면 /albums/<album_id>/photos/add로 POST
+  - 서버는 업로드 파일을 static/uploads/에 저장
+              Pillow로 썸네일을 static/uploads/thumbs/에 생성
+              DB photos에 (album_id, title, file_path)를 INSERT
+  - 완료되면 다시 사진 목록으로 리다이렉트
+5. 사진 수정(제목 변경/파일 교체)
+  - 사진 수정 링크 클릭 → /photos/edit/<photo_id> GET → photo_edit.html
+  - 저장 POST(/photos/edit/<photo_id>) 시 파일을 안 올리면 제목만 UPDATE
+    파일을 올리면 새 파일 저장+새 썸네일 생성 → DB의 file_path UPDATE → 이전 파일/썸네일 삭제
+6. 사진 삭제
+  - 삭제 POST(/photos/delete/<photo_id>) 시
+     - DB에서 해당 사진 row 삭제
+     - static/uploads/의 원본 파일과 static/uploads/thumbs/의 썸네일 파일도 같이 삭제
+     - 다시 해당 앨범의 사진 목록으로 이동
+
+요약하면: 앨범을 만들고( DB ) → 앨범 안에 사진을 업로드하면(파일은 폴더, 경로는 DB) → 목록/수정/삭제는 DB와 파일을 함께 관리하는 구조.
+
+
 -- 1) 앨범 테이블
 CREATE TABLE albums (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -305,6 +367,7 @@ CREATE TABLE photos (
 );
 CREATE INDEX idx_photos_album_id ON photos (album_id);
 -- 인덱스는 별도로 생성. MySQL처럼 테이블 안에 INDEX (album_id) 쓰지 않음.
+
 
 
 
